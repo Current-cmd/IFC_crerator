@@ -11,11 +11,7 @@ ENV/
 
 
 
-# Data directories (don't commit large point cloud data)
-raw_pointCloud/
-clips/
-Building_2_2nd_Floor/
-4th_Floor_whole_corridor/
+
 
 # IDE
 .vscode/
@@ -30,3 +26,7 @@ Thumbs.db
 # Logs
 *.log
 watcher_test.log
+
+# Large data files
+raw_pointCloud/
+Tested_output/
