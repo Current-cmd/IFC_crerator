@@ -19,7 +19,6 @@ services:
       /bin/bash -c "
       source activate open3d_project_env &&
       python run_corridor_incremental.py 
-      --root /app/work 
       --batches /app/input/Building_2_2nd_Floor &&
       if ls output_* 1> /dev/null 2>&1; then
         cp -r output_* /app/output/

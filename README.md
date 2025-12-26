@@ -2,6 +2,14 @@
 
 Incremental pipeline for wall reconstruction from point clouds with **batch processing** and **real-time file monitoring**.
 
+## Download Sample Data
+
+Download sample point cloud data to test the pipeline:
+
+📥 **[Download Point Cloud Data](https://tumde-my.sharepoint.com/:f:/g/personal/anoushk_kolagotla_tum_de/IgBsA8k5OK5HQJsK26EXyIEzAdHX20e0HBayr7jpB21xayA?e=Gvwgew)**
+
+Extract the downloaded files to the `raw_pointCloud` directory in your project.
+
 ## Features
 
 - 🔄 **Two Modes**: Batch (all files at once) or File Watcher (live monitoring)
@@ -34,12 +42,12 @@ pip install open3d laspy matplotlib ifcopenshell
 
 ### Batch Mode (Process All Files)
 ```bash
-python run_corridor_incremental.py --root . --batches /path/to/scans
+python run_corridor_incremental.py --batches /path/to/scans
 ```
 
 ### File Watcher Mode (Live Monitoring)
 ```bash
-python run_corridor_incremental.py --root . --watch /path/to/scans --interval 5
+python run_corridor_incremental.py --watch /path/to/scans --interval 5
 # Press Ctrl+C to stop and finalize
 ```
 
@@ -49,14 +57,14 @@ python run_corridor_incremental.py --root . --watch /path/to/scans --interval 5
 
 | Argument | Description | Required | Default |
 |----------|-------------|----------|---------|
-| `--root` | Root folder with scripts | **Yes** | - |
+| `--root` | Root folder with scripts | No | Script directory |
 | `--batches` | Directory with point clouds (batch mode) | Yes* | - |
 | `--watch` | Directory to monitor (watcher mode) | Yes* | - |
 | `--interval` | Poll interval in seconds (watcher only) | No | 5.0 |
 
 *One of `--batches` or `--watch` is required
 
-**Note**: `--root` should typically be set to `.` (current directory) if scripts are in the same folder.
+**Note**: `--root` is now optional and defaults to the script directory. Only specify it if your scripts are in a different location.
 
 ### Mode Comparison
 
@@ -69,24 +77,24 @@ python run_corridor_incremental.py --root . --watch /path/to/scans --interval 5
 
 **Batch Mode** - Use when all files are ready:
 ```bash
-python run_corridor_incremental.py --root . --batches /data/Building_Floor_2
+python run_corridor_incremental.py --batches /data/Building_Floor_2
 ```
 
 **File Watcher Mode** - Use for live scanning:
 ```bash
-python run_corridor_incremental.py --root . --watch /data/live_scans --interval 3
+python run_corridor_incremental.py --watch /data/live_scans --interval 3
 ```
 
 ### Examples
 
 ```bash
-# Process a building floor (scripts in current directory)
-python run_corridor_incremental.py --root . --batches /data/Building_2_2nd_Floor
+# Process a building floor
+python run_corridor_incremental.py --batches /data/Building_2_2nd_Floor
 
 # Monitor live scanning (check every 3 seconds)
-python run_corridor_incremental.py --root . --watch /data/live --interval 3
+python run_corridor_incremental.py --watch /data/live --interval 3
 
-# Custom root directory (scripts elsewhere)
+# Optional: Specify custom script directory (if scripts are elsewhere)
 python run_corridor_incremental.py --root /custom/scripts --batches /data/scans
 ```
 
@@ -146,16 +154,7 @@ Files are sorted numerically by first number in filename:
 
 ## Configuration
 
-**Note**: The `--root` argument is required and should point to the directory containing the pipeline scripts (`vertical_ransac.py`, `make_wall_bboxes_from_segments.py`, etc.). Use `--root .` if running from the script directory.
-
-~~### Environment Variable~~
-~~```bash~~
-~~export POINTCLOUD_ROOT="/path/to/root"~~
-~~python run_corridor_incremental.py --batches /data/scans~~
-~~```~~
-
-~~### Priority~~
-~~`--root` argument > `POINTCLOUD_ROOT` env var > default path~~
+**Note**: The `--root` argument is now optional. By default, the pipeline automatically detects the script directory. Only specify `--root` if your helper scripts (`vertical_ransac.py`, `make_wall_bboxes_from_segments.py`, etc.) are in a different location.
 
 ## Troubleshooting
 

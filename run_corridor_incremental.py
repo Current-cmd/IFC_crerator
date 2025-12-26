@@ -678,15 +678,18 @@ if __name__ == "__main__":
         epilog="""
 Examples:
   # Batch mode (process all files at once)
-  python run_corridor_incremental.py --root /path/to/scripts --batches /path/to/pointclouds
+  python run_corridor_incremental.py --batches /path/to/pointclouds
   
   # File watcher mode (continuously monitor directory)
-  python run_corridor_incremental.py --root /path/to/scripts --watch /path/to/pointclouds --interval 5
+  python run_corridor_incremental.py --watch /path/to/pointclouds --interval 5
+  
+  # Optional: Specify custom script location
+  python run_corridor_incremental.py --root /path/to/scripts --batches /path/to/pointclouds
         """
     )
     parser.add_argument("--root", 
-                        help="Root folder containing scripts (REQUIRED)",
-                        required=True)
+                        help="Root folder containing scripts (default: current directory)",
+                        default=None)
     parser.add_argument("--batches", 
                         help="Batch directory containing point cloud files (batch mode)")
     parser.add_argument("--watch", 
@@ -705,7 +708,14 @@ Examples:
     if not args.batches and not args.watch:
         parser.error("Must specify either --batches (batch mode) or --watch (file watcher mode)")
 
-    root_path = Path(args.root)
+    # Determine root path
+    if args.root:
+        root_path = Path(args.root)
+    else:
+        # Default to directory containing this script
+        root_path = Path(__file__).parent.resolve()
+        logger.info(f"No --root specified, using script directory: {root_path}")
+    
     paths = build_paths(root_path)
     
     # Determine mode and set up paths

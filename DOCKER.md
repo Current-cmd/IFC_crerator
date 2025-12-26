@@ -43,7 +43,7 @@ docker run --rm \
   -w /app/work \
   wall-reconstruction:latest \
   /bin/bash -c "source activate open3d_project_env && \
-    python run_corridor_incremental.py --root /app/work --batches /app/input && \
+    python run_corridor_incremental.py --batches /app/input && \
     cp -r output_* /app/output/"
 ```
 
@@ -56,7 +56,7 @@ docker run --rm -it \
   -w /app/work \
   wall-reconstruction:latest \
   /bin/bash -c "source activate open3d_project_env && \
-    python run_corridor_incremental.py --root /app/work --watch /app/input --interval 5 && \
+    python run_corridor_incremental.py --watch /app/input --interval 5 && \
     cp -r output_* /app/output/"
 ```
 

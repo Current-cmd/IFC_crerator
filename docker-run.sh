@@ -93,7 +93,7 @@ if [ "$MODE" = "batch" ]; then
     wall-reconstruction:latest \
     /bin/bash -c "
       source activate open3d_project_env && 
-      python run_corridor_incremental.py --root /app/work --batches /app/input && 
+      python run_corridor_incremental.py --batches /app/input && 
       if ls output_* 1> /dev/null 2>&1; then
         cp -r output_* /app/output/ && 
         echo 'Results copied to /app/output/'
@@ -111,7 +111,7 @@ else
     wall-reconstruction:latest \
     /bin/bash -c "
       source activate open3d_project_env && 
-      python run_corridor_incremental.py --root /app/work --watch /app/input --interval $INTERVAL && 
+      python run_corridor_incremental.py --watch /app/input --interval $INTERVAL && 
       if ls output_* 1> /dev/null 2>&1; then
         cp -r output_* /app/output/ && 
         echo 'Results copied to /app/output/'

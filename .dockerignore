@@ -9,15 +9,7 @@ venv/
 ENV/
 *.egg-info/
 
-# Output directories
-output_*/
-docker_output/
-visualizations/
 
-# Data directories
-clips/
-Building_2_2nd_Floor/
-output_ani/
 
 # Git
 .git/
